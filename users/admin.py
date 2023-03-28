@@ -15,9 +15,9 @@ class LocationAdmin(admin.ModelAdmin):
 @admin.register(User)
 class MyUserAdmin(admin.ModelAdmin):
     list_display = (
+        "username",
         "first_name",
         "last_name",
-        "username",
         "role",
         "age",
     )
