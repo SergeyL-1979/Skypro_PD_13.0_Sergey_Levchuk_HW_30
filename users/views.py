@@ -1,4 +1,5 @@
 from django.db.models import Count, Q
+from rest_framework import status
 
 from rest_framework.generics import (
     ListAPIView,
@@ -8,14 +9,12 @@ from rest_framework.generics import (
     DestroyAPIView,
 )
 from rest_framework.pagination import PageNumberPagination
+from rest_framework.response import Response
+from rest_framework.views import APIView
 from rest_framework.viewsets import ModelViewSet
 from users.models import Location, User
 from users.serializers import (
     LocationListSerializer,
-    LocationDetailSerializer,
-    LocationCreateSerializer,
-    LocationUpdateSerializer,
-    LocationDestroySerializer,
     UserSerializer, UserCreateSerializer,
     UserUpdateSerializer, UserListSerializer
 )
@@ -25,30 +24,6 @@ from users.serializers import (
 class LocationListViewSet(ModelViewSet):
     queryset = Location.objects.all()
     serializer_class = LocationListSerializer
-
-# class LocationListAPIView(ListAPIView):
-#     queryset = Location.objects.all()
-#     serializer_class = LocationListSerializer
-
-
-class LocationDetailAPIView(RetrieveAPIView):
-    queryset = Location.objects.all()
-    serializer_class = LocationDetailSerializer
-
-
-class LocationCreateAPIView(CreateAPIView):
-    queryset = Location.objects.all()
-    serializer_class = LocationCreateSerializer
-
-
-class LocationUpdateAPIView(UpdateAPIView):
-    queryset = Location.objects.all()
-    serializer_class = LocationUpdateSerializer
-
-
-class LocationDeleteAPIView(DestroyAPIView):
-    queryset = Location.objects.all()
-    serializer_class = LocationDestroySerializer
 
 
 # === ПАГИНАЦИЯ С ПОМОЩЬЮ REST FRAMEWORK ===================
@@ -85,3 +60,8 @@ class UserDeleteView(DestroyAPIView):
     queryset = User.objects.all()
     serializer_class = UserSerializer
 
+
+class Logout(APIView):
+    def post(self, request):
+        request.user.auth_token.delete()
+        return Response(status=status.HTTP_200_OK)
