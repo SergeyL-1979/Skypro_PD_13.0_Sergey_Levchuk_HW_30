@@ -8,29 +8,29 @@ class LocationListSerializer(serializers.ModelSerializer):
         fields = "__all__"
 
 
-class LocationDetailSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Location
-        fields = "__all__"
-
-
-class LocationCreateSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Location
-        fields = "__all__"
-
-
-class LocationUpdateSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Location
-        fields = "__all__"
-
-
-class LocationDestroySerializer(serializers.ModelSerializer):
-    model = Location
-    fields = [
-        "id",
-    ]
+# class LocationDetailSerializer(serializers.ModelSerializer):
+#     class Meta:
+#         model = Location
+#         fields = "__all__"
+#
+#
+# class LocationCreateSerializer(serializers.ModelSerializer):
+#     class Meta:
+#         model = Location
+#         fields = "__all__"
+#
+#
+# class LocationUpdateSerializer(serializers.ModelSerializer):
+#     class Meta:
+#         model = Location
+#         fields = "__all__"
+#
+#
+# class LocationDestroySerializer(serializers.ModelSerializer):
+#     model = Location
+#     fields = [
+#         "id",
+#     ]
 
 
 class UserSerializer(serializers.ModelSerializer):
@@ -57,24 +57,30 @@ class UserListSerializer(serializers.ModelSerializer):
 class UserCreateSerializer(serializers.ModelSerializer):
     location = serializers.SlugRelatedField(required=False, many=True,
                                             slug_field="name", queryset=Location.objects.all())
+    username = serializers.CharField(max_length=150, required=True)
+    password = serializers.CharField(max_length=128, required=True)
 
     def is_valid(self, raise_exception=False):
         self._locations = self.initial_data.pop("location", [])
         return super().is_valid(raise_exception=raise_exception)
 
     def create(self, validated_data):
-        new_user = User.objects.create(**validated_data)
+        # new_user = User.objects.create(**validated_data)
+        new_user = super().create(validated_data)
+
         for loc_name in self._locations:
             location_obj, _ = Location.objects.get_or_create(name=loc_name)
             new_user.location.add(location_obj)
 
+        new_user.set_password(new_user.password)
+        new_user.save()
         return new_user
 
     class Meta:
         model = User
         fields = [
-            "id", "last_login", "username",
-            "first_name", "last_name", "email", "date_joined",
+            "id", "last_login", "username", "password", "first_name",
+            "last_name", "email", "date_joined",
             "role", "age", "groups", "user_permissions", "location"
         ]
 
