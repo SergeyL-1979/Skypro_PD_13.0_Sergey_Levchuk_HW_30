@@ -7,7 +7,7 @@ class IsAdminOrReadOnly(permissions.BasePermission):
     """ """
     message = ""
     def has_permission(self, request, view):
-        if request.user.roles in [User.STATUS.get("admin"),User.STATUS.get("moderator")]:
+        if request.user.role in [User.STATUS.get("admin"),User.STATUS.get("moderator")]:
             return True
         # if request.method in permissions.SAFE_METHODS:
         #     return True
