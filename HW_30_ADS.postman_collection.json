@@ -654,7 +654,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"username\": \"tost\",\r\n    \"password\": \"wialon\"\r\n}",
+							"raw": "{\r\n    \"username\": \"skypro\",\r\n    \"password\": \"wialon\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -857,7 +857,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjgwMzcxNjYyLCJpYXQiOjE2ODAzNzEzNjIsImp0aSI6Ijg2ZjQ3MWI2MTRhOTQyNWZiNWUxYjAwZGI2NWRlZWUzIiwidXNlcl9pZCI6MTJ9.MwVjMt172OKEZQYY_5gbzUy61cs-f_7j3JWaZvQ-mig",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjgwMzc2NDc3LCJpYXQiOjE2ODAzNzYxNzcsImp0aSI6ImExODNiNGE3OGJkYTQwYmI5YzI2Njk2Mjg4NWM3MjlkIiwidXNlcl9pZCI6MTF9.DslKzNOjld5VXYtU4sI7ekV0xFrGbSMIgZ52xREqXDE",
 									"type": "string"
 								}
 							]
