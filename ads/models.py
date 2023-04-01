@@ -15,7 +15,7 @@ class Announcement(models.Model):
     )
     price = models.FloatField(_("Цена"))
     description = models.TextField(_("Описание"))
-    image = models.ImageField(_("Добавить фото"), upload_to="images")
+    image = models.ImageField(_("Добавить фото"), upload_to="images", null=True)
     is_published = models.BooleanField(_("is_published"), null=True)
     category = models.ForeignKey(
         Category, on_delete=models.CASCADE, verbose_name="Категория"
@@ -39,6 +39,25 @@ class Announcement(models.Model):
     class Meta:
         verbose_name = "Объявление"
         verbose_name_plural = "Объявления"
+        ordering = ["author__username"]
 
     def __str__(self):
-        return self.author.username
+        return '{}, NAME: {}'.format(self.author.username, self.name)
+
+
+class Favorite(models.Model):
+    """
+    Модель позволяющая делать группу избранного и добавлять
+    в нее выбранные объекты
+    """
+    name = models.CharField(max_length=15, blank=True)
+    author = models.ForeignKey(User, on_delete=models.CASCADE)
+    ads = models.ManyToManyField(Announcement, blank=True)
+
+    class Meta:
+        verbose_name = "Избранное"
+        verbose_name_plural = "Избранные"
+
+    def __str__(self):
+        return self.name
+

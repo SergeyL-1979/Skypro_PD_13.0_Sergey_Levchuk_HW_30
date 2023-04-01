@@ -35,12 +35,13 @@ router.register(r'location', LocationListViewSet)
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('ads/', include(router.urls)),
+    path('', views.root),
     path('api-auth/', include('rest_framework.urls')),
 
     path('ad/', include('ads.urls')),
     path('cat/', include('category.urls')),
     path('users/', include('users.urls')),
+    path('selection/', include('ads.selection')),
 ]
 
 urlpatterns += router.urls

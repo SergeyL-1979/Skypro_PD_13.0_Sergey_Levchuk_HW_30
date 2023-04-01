@@ -1,5 +1,5 @@
 from django.contrib import admin
-from ads.models import Announcement
+from ads.models import Announcement, Favorite
 
 
 # Register your models here.
@@ -28,3 +28,10 @@ class AnnouncementAdmin(admin.ModelAdmin):
     ordering = ("-price",)
     list_per_page = 5
     list_max_show_all = 50
+
+# admin.site.register(Favorite)
+@admin.register(Favorite)
+class FavoriteAdmin(admin.ModelAdmin):
+    list_display = ("author",  "name", )
+#     readonly_fields = ("ads", )
+
