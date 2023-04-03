@@ -76,7 +76,7 @@ class AnnouncementUpdateViewSet(UpdateAPIView):
     """ """
     queryset = Announcement.objects.all()
     serializer_class = AnnouncementSerializer
-    permission_classes = [IsAuthenticated, IsOwnerOrReadOnly | IsOwnerOrReadOnly]
+    permission_classes = [IsAuthenticated, IsOwnerOrReadOnly]
 
 class AnnouncementDeleteViewSet(DestroyAPIView):
     """ """
